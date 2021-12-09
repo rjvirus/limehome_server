@@ -1,13 +1,13 @@
 const functions = require('firebase-functions');
+const config = require('./config.json');
 const admin = require('firebase-admin');
 const express = require('express');
 const cors = require('cors');
 const app = express();
 app.use(cors({ origin: true }));
 
-var serviceAccount = require("./permissions.json");
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(config.FIREBASE_CONFIG),
   databaseURL: "https://fir-api-9a206..firebaseio.com"
 });
 
