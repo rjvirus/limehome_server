@@ -47,9 +47,12 @@ app.delete('/api/favourites', (req, res) => {
   const propertyId = req.body.propertyId;
   let docRef = db.collection('users').doc('pCsGr1nIgRT0iPvU76m0');
 
+  if(typeof propertyId === 'string') {
+    res.status(400).json({ success: false, message: "Bad Request" })
+  }
   docRef.get().then(doc => {
     if (!doc.exists) {
-      res.json({ success: false });
+      res.status(500).json({ success: false, message: "Database not initialized" });
     } else {
       return doc.data()
     }
@@ -63,11 +66,11 @@ app.delete('/api/favourites', (req, res) => {
     }
     return docRef.update({ favourites: updatedFav });
   }).then(doc => {
-    res.json({ success: true });
+    res.status(200).json({ success: true });
   }).catch((e) => {
-    res.json({
+    res.status(500).json({
       success: false,
-      message: e.message
+      error: e
     })
   });
 
