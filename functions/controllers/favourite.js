@@ -4,7 +4,7 @@ const db = fs.firestore();
 
 let docRef = db.collection('users').doc(defaultUserId);
 
-function addFavourite(req, res) {
+const addFavourite = (req, res) => {
 	const propertyId = req.body.propertyId;
 
 	docRef.get().then(doc => {
@@ -31,41 +31,44 @@ function addFavourite(req, res) {
 	});
 }
 
-function deleteFavourite(req, res) {
+const deleteFavourite = (req, res) => {
 	const propertyId = req.body.propertyId;
 
-	if (typeof propertyId === 'string') {
-		res.status(400).json({ success: false, message: "Bad Request" })
-	} else {
-		docRef.get().then(doc => {
-			if (!doc.exists) {
-				res.status(500).json({ success: false, message: "Database not initialized" });
-			} else {
-				return doc.data()
-			}
-		}).then(data => {
-			let updatedFav = data.favourites.slice();
-			let index = data.favourites.indexOf(propertyId);
-			if (index === -1) {
-				throw Error('Does not exists');
-			} else {
-				updatedFav.splice(index, 1);
-			}
-			return docRef.update({ favourites: updatedFav });
-		}).then(doc => {
-			res.status(200).json({ success: true });
-		}).catch((e) => {
-			res.status(500).json({
-				success: false,
-				error: e
-			})
-		});
-	}
-}
-
-function getAllFavourite(req, res) {
 
 	docRef.get().then(doc => {
+		if (!doc.exists) {
+			res.status(500).json({ success: false, message: "Database not initialized" });
+		} else {
+			return doc.data()
+		}
+	}).then(data => {
+		if (typeof propertyId === 'string') {
+			res.status(400).json({ success: false, message: "Bad Request" })
+		} else {
+			return data
+		}
+	}).then(data => {
+		let updatedFav = data.favourites.slice();
+		let index = data.favourites.indexOf(propertyId);
+		if (index === -1) {
+			throw Error('Does not exists');
+		} else {
+			updatedFav.splice(index, 1);
+		}
+		return docRef.update({ favourites: updatedFav });
+	}).then(doc => {
+		res.status(200).json({ success: true });
+	}).catch((e) => {
+		res.status(500).json({
+			success: false,
+			error: e
+		})
+	});
+}
+
+const getAllFavourite = (req, res) => {
+
+	return docRef.get().then(doc => {
 		if (!doc.exists) {
 			res.json({ message: 'No such document!' });
 		} else {

@@ -3,13 +3,11 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const { addFavourite, deleteFavourite, getAllFavourite } = require('./controllers/favourite');
+const favouriteRoute = require("./routes/favourite")
 
 // Middleware
 app.use(cors({ origin: true }));
 
-//Route
-app.put('/api/favourites', addFavourite);
-app.delete('/api/favourites', deleteFavourite);
-app.get('/api/favourites', getAllFavourite);
+app.use('/api/favourites', favouriteRoute)
 
 exports.app = functions.https.onRequest(app);
