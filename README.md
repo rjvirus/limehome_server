@@ -6,4 +6,4 @@ and download the json file and rename it to 'config.json' and add to the folder 
 This file consists of permissions and keys to login to firestore.
 
 After doing this, we can process with running npm i inside functions folder and then run 
-"npm run serve"
+"npm run serve" to run the function locally
