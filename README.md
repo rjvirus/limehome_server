@@ -16,3 +16,6 @@ Three endpoints available to the same route '/api/favourites' with difference in
 1. PUT method to add favourited item/property to the database.
 2. DELETE method to remove item/property from favourites.
 3. GET method to fetch all favourites item.
+
+
+Manually tested all the APIs using Postman App. 
