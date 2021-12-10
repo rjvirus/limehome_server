@@ -2,7 +2,7 @@ const functions = require('firebase-functions');
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const { addFavourite, deleteFavourite, getAllFavourite } = require('./favouriteController');
+const { addFavourite, deleteFavourite, getAllFavourite } = require('./controllers/favourite');
 app.use(cors({ origin: true }));
 
 app.put('/api/favourites', addFavourite);
