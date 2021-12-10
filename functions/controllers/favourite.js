@@ -2,8 +2,8 @@ const admin = require("firebase-admin");
 const config = require('../config.json');
 
 admin.initializeApp({
-    credential: admin.credential.cert(config.FIREBASE_CONFIG),
-    databaseURL: "https://fir-api-9a206..firebaseio.com"
+	credential: admin.credential.cert(config.FIREBASE_CONFIG),
+	databaseURL: "https://fir-api-9a206..firebaseio.com"
 });
 
 const db = admin.firestore();
@@ -70,14 +70,14 @@ function deleteFavourite(req, res) {
 }
 
 function getAllFavourite(req, res) {
-  let docRef = db.collection('users').doc('pCsGr1nIgRT0iPvU76m0');
-  docRef.get().then(doc => {
-    if (!doc.exists) {
-      res.json({ message: 'No such document!' });
-    } else {
-      res.json({ message: 'Succesfull!', data: doc.data().favourites });
-    }
-  })
+	let docRef = db.collection('users').doc('pCsGr1nIgRT0iPvU76m0');
+	docRef.get().then(doc => {
+		if (!doc.exists) {
+			res.json({ message: 'No such document!' });
+		} else {
+			res.json({ message: 'Succesfull!', data: doc.data().favourites });
+		}
+	})
 }
 
 module.exports = { addFavourite, deleteFavourite, getAllFavourite }
