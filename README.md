@@ -1,6 +1,6 @@
 # limehome_server
 
-This REST API has been implmented using Google Firestore Database and Express. In order to swiftly run the program locally follow the instructions below:
+This REST API has been implmented using Google Firestore Database and Express which could be deployed as a serverless function as well with some tweaks. In order to swiftly run the program locally follow the instructions below:
 
 1. Go to this link: https://drive.google.com/file/d/10ZDsd43aCiS0aazKblYIG0BoegwE7mf-/view?usp=sharing
 and download the json file, create a file named 'config.json' in the folder functions and copy the contents of the downloaded file to it.
