@@ -4,7 +4,7 @@ const db = fs.firestore();
 
 let docRef = db.collection('users').doc(defaultUserId);
 
-const addFavourite = (req, res) => {
+const add = (req, res) => {
 	const propertyId = req.body.propertyId;
 
 	docRef.get().then(doc => {
@@ -31,7 +31,7 @@ const addFavourite = (req, res) => {
 	});
 }
 
-const deleteFavourite = (req, res) => {
+const remove = (req, res) => {
 	const propertyId = req.body.propertyId;
 
 
@@ -66,7 +66,7 @@ const deleteFavourite = (req, res) => {
 	});
 }
 
-const getAllFavourite = (req, res) => {
+const getAll = (req, res) => {
 
 	return docRef.get().then(doc => {
 		if (!doc.exists) {
@@ -77,4 +77,4 @@ const getAllFavourite = (req, res) => {
 	})
 }
 
-module.exports = { addFavourite, deleteFavourite, getAllFavourite }
+module.exports = { add, remove, getAll }

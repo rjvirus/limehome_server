@@ -1,8 +1,8 @@
 const router = require("express").Router();
-const { addFavourite, deleteFavourite, getAllFavourite } = require("../controllers/favourite");
+const favouriteController = require("../controllers/favourite");
 
-router.put('/', addFavourite);
-router.delete('/', deleteFavourite);
-router.get('/', getAllFavourite);
+router.put('/', favouriteController.add);
+router.delete('/', favouriteController.remove);
+router.get('/', favouriteController.getAll);
 
 module.exports = router
