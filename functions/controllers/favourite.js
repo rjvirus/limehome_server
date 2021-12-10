@@ -1,16 +1,16 @@
 const admin = require("firebase-admin");
 const config = require('../config.json');
-
+const defaultUserId = "pCsGr1nIgRT0iPvU76m0";
 admin.initializeApp({
 	credential: admin.credential.cert(config.FIREBASE_CONFIG),
 	databaseURL: "https://fir-api-9a206..firebaseio.com"
 });
 
 const db = admin.firestore();
+let docRef = db.collection('users').doc(defaultUserId);
 
 function addFavourite(req, res) {
 	const propertyId = req.body.propertyId;
-	let docRef = db.collection('users').doc('pCsGr1nIgRT0iPvU76m0');
 
 	docRef.get().then(doc => {
 		if (!doc.exists) {
@@ -38,7 +38,6 @@ function addFavourite(req, res) {
 
 function deleteFavourite(req, res) {
 	const propertyId = req.body.propertyId;
-	let docRef = db.collection('users').doc('pCsGr1nIgRT0iPvU76m0');
 
 	if (typeof propertyId === 'string') {
 		res.status(400).json({ success: false, message: "Bad Request" })
@@ -70,7 +69,7 @@ function deleteFavourite(req, res) {
 }
 
 function getAllFavourite(req, res) {
-	let docRef = db.collection('users').doc('pCsGr1nIgRT0iPvU76m0');
+
 	docRef.get().then(doc => {
 		if (!doc.exists) {
 			res.json({ message: 'No such document!' });
