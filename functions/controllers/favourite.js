@@ -1,10 +1,11 @@
 const defaultUserId = "pCsGr1nIgRT0iPvU76m0";
 const fs = require('../firestore');
 const db = fs.firestore();
-
+const { validationResult } = require('express-validator');
 let docRef = db.collection('users').doc(defaultUserId);
 
 const add = (req, res) => {
+	validatePropertyId(req, res);
 	const propertyId = req.body.propertyId;
 
 	docRef.get().then(doc => {
@@ -32,8 +33,8 @@ const add = (req, res) => {
 }
 
 const remove = (req, res) => {
+	validatePropertyId(req, res);
 	const propertyId = req.body.propertyId;
-
 
 	docRef.get().then(doc => {
 		if (!doc.exists) {
@@ -67,7 +68,7 @@ const remove = (req, res) => {
 }
 
 const getAll = (req, res) => {
-
+	validatePropertyId(req, res);
 	return docRef.get().then(doc => {
 		if (!doc.exists) {
 			res.json({ message: 'No such document!' });
@@ -78,3 +79,10 @@ const getAll = (req, res) => {
 }
 
 module.exports = { add, remove, getAll }
+
+function validatePropertyId(req, res) {
+	const errors = validationResult(req);
+	if (!errors.isEmpty()) {
+		return res.status(400).json({ errors: errors.array() });
+	}
+}
