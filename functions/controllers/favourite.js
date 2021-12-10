@@ -69,15 +69,20 @@ const remove = (req, res) => {
 }
 
 const getAll = (req, res) => {
-	if (isValidated(req, res)) {
-		return docRef.get().then(doc => {
-			if (!doc.exists) {
-				res.json({ message: 'No such document!' });
-			} else {
-				res.json({ message: 'Succesfull!', data: doc.data().favourites });
-			}
-		})
-	}
+	docRef.get().then(doc => {
+		if (!doc.exists) {
+			const data = {
+				name: 'admin',
+				favourites: []
+			};
+
+			db.collection('users').doc(defaultUserId).set(data).then(() => {
+				res.json({ message: 'No documents exists, Please try again' });
+			});
+		} else {
+			res.json({ message: 'Succesfull!', data: doc.data().favourites });
+		}
+	})
 }
 
 module.exports = { add, remove, getAll }
