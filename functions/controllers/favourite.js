@@ -1,12 +1,7 @@
-const admin = require("firebase-admin");
-const config = require('../config.json');
 const defaultUserId = "pCsGr1nIgRT0iPvU76m0";
-admin.initializeApp({
-	credential: admin.credential.cert(config.FIREBASE_CONFIG),
-	databaseURL: "https://fir-api-9a206..firebaseio.com"
-});
+const fs = require('../firestore');
+const db = fs.firestore();
 
-const db = admin.firestore();
 let docRef = db.collection('users').doc(defaultUserId);
 
 function addFavourite(req, res) {
