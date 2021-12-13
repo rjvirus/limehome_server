@@ -7,7 +7,6 @@ let docRef = db.collection('users').doc(defaultUserId);
 const add = (req, res) => {
 	if (isValidated(req, res)) {
 		const propertyId = req.body.propertyId;
-
 		docRef.get().then(doc => {
 			if (!doc.exists) {
 				res.json({ success: false });
@@ -25,7 +24,7 @@ const add = (req, res) => {
 		}).then(doc => {
 			res.json({ success: true });
 		}).catch((e) => {
-			res.json({
+			res.status(500).json({
 				success: false,
 				message: e.message
 			})
@@ -60,7 +59,7 @@ const remove = (req, res) => {
 		}).then(doc => {
 			res.status(200).json({ success: true });
 		}).catch((e) => {
-			res.status(500).json({
+			res.status(e.status).json({
 				success: false,
 				error: e
 			})
@@ -82,7 +81,12 @@ const getAll = (req, res) => {
 		} else {
 			res.json({ message: 'Succesfull!', data: doc.data().favourites });
 		}
-	})
+	}).catch((e) => {
+		res.status(500).json({
+			success: false,
+			error: e
+		})
+	});
 }
 
 module.exports = { add, remove, getAll }
