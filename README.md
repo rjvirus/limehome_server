@@ -1,4 +1,5 @@
 # limehome_server
+If any issues persisting please pull the latest code. Thank you :)
 
 This REST API has been implmented using Google Firestore Database and Express which could be deployed as a serverless function as well with some tweaks. In order to swiftly run the program locally follow the instructions below:
 
@@ -18,3 +19,4 @@ Three endpoints available to the same route '/api/favourites' with difference in
 
 
 Manually tested all the APIs using Postman App. 
+
