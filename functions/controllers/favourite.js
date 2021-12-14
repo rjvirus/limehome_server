@@ -1,6 +1,6 @@
 const defaultUserId = "pCsGr1nIgRT0iPvU76m0";
-const firebase = require('../firebase');
-const db = firebase.firestore();
+const fs = require('../fs');
+const db = fs.firestore();
 const { validationResult } = require('express-validator');
 let docRef = db.collection('users').doc(defaultUserId);
 
